@@ -15,21 +15,29 @@
 Image::Image(int w, int h){
      (this->w) = w;
      (this->h) = h;
+     //std::cout<<"size of matrice : "<<w<<"x"<<h<<std::endl;
      matrice = new Color*[w];
-     for(int i=0; i< w;++i){
+     for(int i=0; i < h; ++i){ // creating h rows
           matrice[i] = new Color[h];
-          for(int j = 0; j < h; ++j){
+          for(int j = 0; j < w; ++j){ // creating w columns
+               //std::cout<<i<<","<<j<<" initialized"<<std::endl;
                matrice[i][j] = Color::Black;
           }
      }
-     matrice[3][2]= Color::Red;
+     matrice[0][0] = Color::Red;
+     matrice[h-1][w-1] = Color::Red;
 }
-/*Copy Constructor FIXME
 Image::Image(const Image& img){
-     w = img.width();
-     h = img.height();
-     matrice = img.matrice;
-}*/
+     (this->w) = img.width();
+     (this->h) = img.height();
+     matrice = new Color*[w];
+     for(int i=0; i < img.height(); ++i){ // creating h rows
+          matrice[i] = new Color[h];
+          for(int j = 0; j < img.width(); ++j){ // creating w columns
+               matrice[i][j] = img.getPixel(i+1,j+1);
+          }
+     }
+}
 //Destructor
 Image::~Image(){
      //delete[] matrice;
@@ -47,8 +55,8 @@ int Image::size() const{
 Color Image::getPixel(int i, int j) const{
      assert(i>0);
      assert(j>0);
-     assert(j<height());
-     assert(i<width());
+     assert(j<=width());
+     assert(i<=height());
      return matrice[i-1][j-1];
 }
 

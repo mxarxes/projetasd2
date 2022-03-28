@@ -17,8 +17,11 @@ int main(void)
 {
   srand(time(nullptr));
   std::cout<<"Hello World!"<<endl;
-  Image img(5,7);
-  std::cout<<img.size()<<endl;
-  img.writeSVG("imagecool",10);
+  Image img(7,5);
+  Image img2(img);
+  //std::cout<<img.size()<<endl;
+  //std::cout<<img.height()<<endl;
+  //std::cout<<img.width()<<endl;
+  img.writeSVG("images/emptyImage_7x5",100);
   return 0;
 }
