@@ -1,3 +1,4 @@
 *.svg
 images/*
 main
+*.o
