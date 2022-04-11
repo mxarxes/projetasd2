@@ -60,6 +60,28 @@ Color Image::getPixel(int i, int j) const{
      return matrice[i-1][j-1];
 }
 
+void Image::setPixel(int i, int j, Color col){
+     assert(i>0);
+     assert(j>0);
+     assert(j<=width());
+     assert(i<=height());
+     matrice[i-1][j-1] = col;
+
+}
+
+//FIXME WORKING POORLY
+int Image::toIndex(int i, int j) const{
+     return i*width()+j*height();
+}
+
+//FIXME
+std::pair<int, int> Image::toCoordinate(int k) const{
+     std::pair<int, int> p;
+     p.first = (int)k/width();
+     p.second = k%width();
+
+     return p;
+}
 void Image::writeSVG(const std::string& filename, int pixelSize) const
 {
   assert(pixelSize > 0);

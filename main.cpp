@@ -22,6 +22,9 @@ int main(void)
   //std::cout<<img.size()<<endl;
   //std::cout<<img.height()<<endl;
   //std::cout<<img.width()<<endl;
+  img.setPixel(1,1,Color::Green);
   img.writeSVG("images/emptyImage_7x5",100);
+  std::cout<<img.toIndex(100,100)<<endl;
+  std::cout<<(img.toCoordinate(4445)).first<<","<<(img.toCoordinate(4445)).second<<endl;
   return 0;
 }

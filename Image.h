@@ -46,14 +46,14 @@ public:
   /// Sets the pixel in the i-th row and j-th column
   /// 1 <= i <= height(), 1 <= j <= width()
   /// col is the new color
-  //void setPixel(int i, int j, Color col);
+  void setPixel(int i, int j, Color col);
 
   /// Maps a coordinate (i, j) to a unique identifier
-  //int toIndex(int i, int j) const;
+  int toIndex(int i, int j) const;
 
   /// Maps an identifier to the corresponding coordinates
   /// Given the result p, p.first is the row and p.second is the column 
-  //std::pair<int, int> toCoordinate(int k) const;
+  std::pair<int, int> toCoordinate(int k) const;
 
   /// Fills this with a given color
   //void fill(Color c);
