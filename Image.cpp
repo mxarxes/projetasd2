@@ -7,6 +7,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 #include <cassert>
+#include <math.h>
 #include <fstream>
 #include <sstream>
 #include <stdexcept>
@@ -69,18 +70,30 @@ void Image::setPixel(int i, int j, Color col){
 
 }
 
-//FIXME WORKING POORLY
 int Image::toIndex(int i, int j) const{
-     return i*width()+j*height();
+     return j*width()+i;
 }
 
-//FIXME
 std::pair<int, int> Image::toCoordinate(int k) const{
      std::pair<int, int> p;
-     p.first = (int)k/width();
-     p.second = k%width();
+     p.first = k%width();
+     p.second = (int)k/width();
 
      return p;
+}
+void Image::fill(Color c){
+          for(int i=0; i < height(); ++i){ // creating h rows
+          for(int j = 0; j < width(); ++j){ // creating w columns
+               setPixel(i+1,j+1,c);
+          }
+     }
+}
+void Image::fillRectangle(int i1, int j1, int i2, int j2, Color c){
+     for(int h = j1; h <= j2; ++h){ // For each row
+          for(int w = i1; w <= i2; ++w){ // Altering the whole row
+               setPixel(w,h,c);
+          }
+     }
 }
 void Image::writeSVG(const std::string& filename, int pixelSize) const
 {
@@ -119,4 +132,8 @@ void Image::writeSVG(const std::string& filename, int pixelSize) const
        << std::endl;
 
   file.close();
+}
+
+bool Image::areConsecutivePixels(int i1, int j1, int i2, int j2){
+     return sqrt(pow(i1-i2,2) + pow(j1-j2,2)) == 1;
 }

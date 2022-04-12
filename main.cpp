@@ -23,8 +23,14 @@ int main(void)
   //std::cout<<img.height()<<endl;
   //std::cout<<img.width()<<endl;
   img.setPixel(1,1,Color::Green);
-  img.writeSVG("images/emptyImage_7x5",100);
-  std::cout<<img.toIndex(100,100)<<endl;
-  std::cout<<(img.toCoordinate(4445)).first<<","<<(img.toCoordinate(4445)).second<<endl;
+  //img.fill(Color::Red);
+  img.fillRectangle(1,1,3,3, Color::Black);
+  img.writeSVG("images/emptyImage_7x5",10);
+  std::cout<<img.toIndex(3,2)<<endl;
+  std::cout<<(img.toCoordinate(17)).first<<","<<(img.toCoordinate(17)).second<<endl;
+  cout<<img.areConsecutivePixels(0,0,1,1);
+  cout<<img.areConsecutivePixels(0,1,1,1);
+  cout<<img.areConsecutivePixels(4,2,3,2);
+  cout<<img.areConsecutivePixels(1,0,2,1);
   return 0;
 }
