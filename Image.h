@@ -80,28 +80,29 @@ public:
   ///   23101
   /// The output file is named filename.aip
   /// Throws an exception std::runtime_error if an error occurs
-  //void writeAIP(const std::string& filename) const;
+  void writeAIP(const std::string& filename) const;
 
   /// Creates an image from an AIP file
   /// The file name must be given without the extension
   /// Throws an exception std::runtime_error if an error occurs
-  //static Image readAIP(const std::string& filename);
+  static Image readAIP(const std::string& filename);
 
   /// Returns true if this and img are equal
-  //bool operator==(const Image& img) const;
+  bool operator==(const Image& img) const;
 
   /// Returns true if this and img are different
-  //bool operator!=(const Image& img) const;
+  bool operator!=(const Image& img) const;
 
   /// Returns true if (i1, j1) and (i2, j2) are two consecutive piels of this
   bool areConsecutivePixels(int i1, int j1, int i2, int j2);
 
+
+  /// Tests if (i,j) is the coordinates of some pixel of this
+  bool isValidCoordinate(int i, int j) const;
 private:
 int w;
 int h;
 Color** matrice;
-  /// Tests if (i,j) is the coordinates of some pixel of this
-  //bool isValidCoordinate(int i, int j) const;
 };
 
 /// Generates an image of width w and height h such that each pixel is

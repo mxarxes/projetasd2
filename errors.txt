@@ -1,0 +1,2 @@
+g++ -g -Wall -std=c++14 -I. -c main.cpp -o main.o
+g++ -g -Wall -std=c++14 -lm Color.o Image.o Analyst.o FireSimulator.o main.o -o main

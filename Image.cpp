@@ -25,8 +25,6 @@ Image::Image(int w, int h){
                matrice[i][j] = Color::Black;
           }
      }
-     matrice[0][0] = Color::Red;
-     matrice[h-1][w-1] = Color::Red;
 }
 Image::Image(const Image& img){
      (this->w) = img.width();
@@ -133,7 +131,41 @@ void Image::writeSVG(const std::string& filename, int pixelSize) const
 
   file.close();
 }
-
+void Image::writeAIP(const std::string& filename) const{
+     std::ofstream file;
+     file.open(filename + ".aip");
+     if (!file) throw std::runtime_error("error open file (write AIP)");
+     file << width() <<" "<<height()<<std::endl;
+     for(int i = 1 ; i <= height(); ++i){
+          for(int j = 1 ; j <= width(); ++j){
+               file << getPixel(i,j).toInt();
+          }
+          file<<std::endl;
+     }
+  }
+bool Image::operator==(const Image& img) const{
+     for(int i = 1; i <= height(); ++i){
+          for(int j = 1; j <= width(); ++j){
+               if(getPixel(i,j) != img.getPixel(i,j)){
+                    return false;
+               }
+          }
+     }
+     return true;
+}
+bool Image::operator!=(const Image& img) const{
+          for(int i = 1; i <= height(); ++i){
+          for(int j = 1; j <= width(); ++j){
+               if(getPixel(i,j) != img.getPixel(i,j)){
+                    return true;
+               }
+          }
+     }
+     return false;
+}
+bool Image::isValidCoordinate(int i, int j) const{
+     return (i> 0 && j > 0 && i <= width() && j <= height());
+}
 bool Image::areConsecutivePixels(int i1, int j1, int i2, int j2){
      return sqrt(pow(i1-i2,2) + pow(j1-j2,2)) == 1;
 }

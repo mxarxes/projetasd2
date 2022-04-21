@@ -51,11 +51,6 @@ public:
 
   /// Returns the indexes of the pixels that belong to the zone of (i, j)
   //std::set<int> zoneOfPixel(int i, int j);
-
-private:
-
-
-
 };
 
 #endif
