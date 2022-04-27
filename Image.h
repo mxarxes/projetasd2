@@ -102,7 +102,7 @@ public:
 private:
 int w;
 int h;
-Color** matrice;
+Color* matrice;
 };
 
 /// Generates an image of width w and height h such that each pixel is

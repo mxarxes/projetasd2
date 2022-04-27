@@ -20,7 +20,11 @@ int main(void)
   Image img(7,5);
   img.fillRectangle(1,1,4,4,Color::Green);
   Image img2(img);
+  img.fillRectangle(1,3,3,7,Color::White);
+  cout << img.width() << "*" << img.height() << " = " << img.size()<<std::endl;
   img.writeAIP("yes");
+  img2.writeAIP("yes2");
   img.writeSVG("images/yes",10);
+  img2.writeSVG("images/yes2",10);
   return 0;
 }
