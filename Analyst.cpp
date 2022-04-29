@@ -42,7 +42,7 @@ Analyst::Analyst(const Image& img){
                     }
                 }
             tab[img.toIndex(coordinatesComparingPixel.first,coordinatesComparingPixel.second)].zoneNumber = tab[img.toIndex(coordinatesCurrentPixel.first,coordinatesCurrentPixel.second)].zoneNumber;
-            std::cout<<"["<<coordinatesCurrentPixel.first<<";"<<coordinatesCurrentPixel.second<<"] and ["<<coordinatesComparingPixel.first<<";"<<coordinatesComparingPixel.second<<"] are in the same zone ("<<currentPixel<<"/"<<comparingPixel<<")"<<std::endl;
+            //std::cout<<"["<<coordinatesCurrentPixel.first<<";"<<coordinatesCurrentPixel.second<<"] and ["<<coordinatesComparingPixel.first<<";"<<coordinatesComparingPixel.second<<"] are in the same zone ("<<currentPixel<<"/"<<comparingPixel<<")"<<std::endl;
 
                 }
             coordinatesComparingPixel.first = img.toCoordinate(i).first;
@@ -55,7 +55,7 @@ Analyst::Analyst(const Image& img){
                     }
                 }
                 tab[img.toIndex(coordinatesComparingPixel.first,coordinatesComparingPixel.second)].zoneNumber = tab[img.toIndex(coordinatesCurrentPixel.first,coordinatesCurrentPixel.second)].zoneNumber;
-                std::cout<<"["<<coordinatesCurrentPixel.first<<";"<<coordinatesCurrentPixel.second<<"] and ["<<coordinatesComparingPixel.first<<";"<<coordinatesComparingPixel.second<<"] are in the same zone ("<<currentPixel<<"/"<<comparingPixel<<")"<<std::endl;
+                //std::cout<<"["<<coordinatesCurrentPixel.first<<";"<<coordinatesCurrentPixel.second<<"] and ["<<coordinatesComparingPixel.first<<";"<<coordinatesComparingPixel.second<<"] are in the same zone ("<<currentPixel<<"/"<<comparingPixel<<")"<<std::endl;
           
             }
         }
@@ -71,7 +71,7 @@ Analyst::Analyst(const Image& img){
                     }
                 }
                 tab[img.toIndex(coordinatesComparingPixel.first,coordinatesComparingPixel.second)].zoneNumber = tab[img.toIndex(coordinatesCurrentPixel.first,coordinatesCurrentPixel.second)].zoneNumber;
-                std::cout<<"["<<coordinatesCurrentPixel.first<<";"<<coordinatesCurrentPixel.second<<"] and ["<<coordinatesComparingPixel.first<<";"<<coordinatesComparingPixel.second<<"] are in the same zone ("<<currentPixel<<"/"<<comparingPixel<<")"<<std::endl;
+                //std::cout<<"["<<coordinatesCurrentPixel.first<<";"<<coordinatesCurrentPixel.second<<"] and ["<<coordinatesComparingPixel.first<<";"<<coordinatesComparingPixel.second<<"] are in the same zone ("<<currentPixel<<"/"<<comparingPixel<<")"<<std::endl;
 
             }
         }
@@ -87,7 +87,7 @@ Analyst::Analyst(const Image& img){
                     }
                 }
                 tab[img.toIndex(coordinatesComparingPixel.first,coordinatesComparingPixel.second)].zoneNumber = tab[img.toIndex(coordinatesCurrentPixel.first,coordinatesCurrentPixel.second)].zoneNumber;
-                std::cout<<"["<<coordinatesCurrentPixel.first<<";"<<coordinatesCurrentPixel.second<<"] and ["<<coordinatesComparingPixel.first<<";"<<coordinatesComparingPixel.second<<"] are in the same zone ("<<currentPixel<<"/"<<comparingPixel<<")"<<std::endl;
+                //std::cout<<"["<<coordinatesCurrentPixel.first<<";"<<coordinatesCurrentPixel.second<<"] and ["<<coordinatesComparingPixel.first<<";"<<coordinatesComparingPixel.second<<"] are in the same zone ("<<currentPixel<<"/"<<comparingPixel<<")"<<std::endl;
             
             }
         }
@@ -134,20 +134,17 @@ int Analyst::nbZones() const{
 std::set<int> Analyst::zoneOfPixel(int i, int j){
     std::set<int> liste;
     for(int k = 0; k < h*w; ++k){
-        if(tab[(j*w)+i].zoneNumber == tab[k].zoneNumber){
+        if(tab[j*w+i].zoneNumber == tab[k].zoneNumber)//std::cout<<k<<" to coordinate is ("<<p.first<<","<<p.second<<")"<<std::endl;[k].zoneNumber){
             liste.insert(k);
         }
-    }
     return liste;
 }
 Image Analyst::fillZone(int i, int j, Color c){
     Image img2(w,h);
     for(int k = 0; k < w*h; ++k){
-        img2.setPixel(img2.toCoordinate(k).first+1,img2.toCoordinate(k).second+1,tab[k].col);
-    }
-    std::set<int> pixelsToChange = zoneOfPixel(i,j);
-    for(auto f : pixelsToChange){
-        img2.setPixel((img2.toCoordinate(f).first)+1,(img2.toCoordinate(f).second)+1,c);
+        if(tab[k].zoneNumber == tab[img2.toIndex(i,j)].zoneNumber){
+            img2.setPixel((img2.toCoordinate(k).first)+1,(img2.toCoordinate(k).second)+1,c);
+        }
     }
     return img2;
 }

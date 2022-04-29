@@ -71,7 +71,6 @@ std::pair<int, int> Image::toCoordinate(int k) const{
      std::pair<int, int> p;
      p.first = (k%width());
      p.second = (int)(k/width());
-     //std::cout<<k<<" to coordinate is ("<<p.first<<","<<p.second<<")"<<std::endl;
      return p;
 }
 void Image::fill(Color c){
@@ -125,6 +124,7 @@ void Image::writeSVG(const std::string& filename, int pixelSize) const
   file.close();
 }
 void Image::writeAIP(const std::string& filename) const{
+     std::cout<<"writing AIP : "<<filename<<std::endl;
      std::ofstream file;
      file.open(filename + ".aip");
      if (!file) throw std::runtime_error("error open file (write AIP)");
@@ -136,6 +136,44 @@ void Image::writeAIP(const std::string& filename) const{
           file<<std::endl;
      }
   }
+/// Creates an image from an AIP file
+/// The file name must be given without the extension
+/// Throws an exception std::runtime_error if an error occurs
+Image Image::readAIP(const std::string& filename)
+{
+    int width, height, tempo;
+    std::string s1,s2;
+    Color* c = new Color();
+    std::ifstream file;
+    file.open(filename + ".aip");
+
+    if (!file) throw std::runtime_error("error open file (read AIP)");
+
+    getline(file, s1);
+    while(s1.at(0) != 32){
+      s2 = s2 + s1.at(0);
+      s1.erase(0,1);
+    }
+
+    height = stoi(s2);
+    s1.erase(0,1);
+    width = stoi(s1);
+
+    Image* img = new Image(width, height);
+
+    for (int i = 1; i <= height; ++i) {
+      getline(file, s1);
+        for (int j = 1; j <= width; ++j) {
+          s2 = s1.at(0);
+          tempo = stoi(s2);
+          img->matrice[j*width+i] = c->makeColor(tempo+1);
+          s1.erase(0,1);
+        }
+    }
+
+    file.close();
+    return *img;
+}
 bool Image::operator==(const Image& img) const{
      for(int i = 1; i <= height(); ++i){
           for(int j = 1; j <= width(); ++j){
