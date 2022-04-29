@@ -21,7 +21,7 @@
 class Analyst {
 public:
   /// Creates an analyst of a given image
-  //Analyst(const Image& img);
+  Analyst(const Image& img);
 
   /// No copy
   Analyst(const Analyst&) = delete;
@@ -30,27 +30,39 @@ public:
   Analyst& operator=(const Analyst&) = delete;
 
   /// Destructor
-  //~Analyst();
+  ~Analyst();
 
   /// Tests if the pixels (i1, j1) and (i2, j2) of the input image
   /// are in the same zone
-  //bool belongToTheSameZone(int i1, int j1, int i2, int j2);
+  bool belongToTheSameZone(int i1, int j1, int i2, int j2);
 
   /// Returns the number of pixels of a given color in the input image
-  //int nbPixelsOfColor(Color c) const;
+  int nbPixelsOfColor(Color c) const;
 
   /// Returns the number of zones of a given color in the input image
-  //int nbZonesOfColor(Color c) const;
+  int nbZonesOfColor(Color c) const;
 
   /// Returns the number of zones in the input image
-  //int nbZones() const;
+  int nbZones() const;
 
   /// Creates a new image by filling the zone of pixel (i, j) in the input
   /// image with a given color
-  //Image fillZone(int i, int j, Color c);
+  Image fillZone(int i, int j, Color c);
 
   /// Returns the indexes of the pixels that belong to the zone of (i, j)
-  //std::set<int> zoneOfPixel(int i, int j);
+  std::set<int> zoneOfPixel(int i, int j);
+
+private:
+
+struct t_case{
+  int zoneNumber; // Représentant, numéro de zone
+  Color col;
+};
+  t_case* tab;
+  int numberOfZones;
+  int nbPixels;
+  int w;
+  int h;
 };
 
 #endif

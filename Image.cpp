@@ -27,8 +27,10 @@ Image::Image(const Image& img){
      (this->w) = img.width();
      (this->h) = img.height();
      matrice = new Color[w*h];
+     std::pair<int,int> point;
      for(int i=0; i < img.size(); ++i){
-               matrice[i] = img.getPixel(toCoordinate(i).first+1,toCoordinate(i).second+1);
+               point = toCoordinate(i);
+               matrice[i] = img.getPixel(point.first+1,point.second+1);
      }
 }
 //Destructor
@@ -50,7 +52,7 @@ Color Image::getPixel(int i, int j) const{
      assert(i<=width());
      assert(j>0);
      assert(j<=height());
-     return matrice[(j-1)*width()+i-1];
+     return matrice[(j-1)*width()+(i-1)];
 }
 
 void Image::setPixel(int i, int j, Color col){
@@ -67,10 +69,9 @@ int Image::toIndex(int i, int j) const{
 
 std::pair<int, int> Image::toCoordinate(int k) const{
      std::pair<int, int> p;
-     
-     p.first = k%width();
-     p.second = (int)k/width();
-     std::cout<<k<<" to coordinate is ("<<p.first<<","<<p.second<<")"<<std::endl;
+     p.first = (k%width());
+     p.second = (int)(k/width());
+     //std::cout<<k<<" to coordinate is ("<<p.first<<","<<p.second<<")"<<std::endl;
      return p;
 }
 void Image::fill(Color c){
@@ -81,7 +82,7 @@ void Image::fill(Color c){
 void Image::fillRectangle(int i1, int j1, int i2, int j2, Color c){
      for(int h = j1; h <= j2; ++h){ // For each row
           for(int k = i1; k <=i2; ++k){ // for each column of the rectangle
-               setPixel(h,k,c);
+               setPixel(h+1,k+1,c);
           }
      }
 }
